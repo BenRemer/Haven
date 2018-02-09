@@ -358,14 +358,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
-                finish();
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
-            } else if(canceledLogin) {
+            if(canceledLogin) {
                 mPasswordView.requestFocus();
                 canceledLogin = false;
-            }else{
+            } else if (success) {
+                finish();
+                Intent i = new Intent(getApplicationContext(), SideBar.class);
+                startActivity(i);
+            } else{
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
