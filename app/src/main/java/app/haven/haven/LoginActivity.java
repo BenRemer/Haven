@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.SearchManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -95,6 +96,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        /**
+         * Button that comes up when you try to log in
+         */
         mCancelButtonView = (Button) findViewById(R.id.cancel_action_button);
         mCancelButtonView.setOnClickListener(new OnClickListener() {
             @Override
@@ -104,6 +108,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
     }
 
+    /**
+     * If the cancel button is clicked return to main screen and don't give an error
+     */
     private void cancelLogin() {
         showProgress(false);
         canceledLogin = true;
@@ -280,6 +287,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         addusernamesToAutoComplete(usernames);
+
     }
 
     @Override
@@ -352,6 +360,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
             } else if(canceledLogin) {
                 mPasswordView.requestFocus();
                 canceledLogin = false;
