@@ -3,6 +3,7 @@ package app.haven.haven;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.SearchManager;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -49,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "user:pass"
+            "user:pass", "admin:admin"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -61,6 +62,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private View mCancelButtonView;
+    private boolean canceledLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +95,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        mCancelButtonView = (Button) findViewById(R.id.cancel_action_button);
+        mCancelButtonView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancelLogin();
+            }
+        });
+    }
+
+    private void cancelLogin() {
+        showProgress(false);
+        canceledLogin = true;
     }
 
     private void populateAutoComplete() {
@@ -220,6 +235,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             });
 
+            mCancelButtonView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
@@ -228,6 +244,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
+
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
@@ -311,6 +328,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
+
             } catch (InterruptedException e) {
                 return false;
             }
@@ -334,7 +352,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
-            } else {
+            } else if(canceledLogin) {
+                mPasswordView.requestFocus();
+                canceledLogin = false;
+            }else{
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
