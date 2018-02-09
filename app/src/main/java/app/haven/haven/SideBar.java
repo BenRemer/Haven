@@ -95,7 +95,7 @@ public class SideBar extends AppCompatActivity
             }
             builder.setTitle("Log out?")
                     .setMessage("Are you sure you would like to log out?")
-                    .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // continue with delete
                             finish();
@@ -104,7 +104,7 @@ public class SideBar extends AppCompatActivity
                         }
                     })
 
-                    .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // do nothing
                             closeContextMenu();
@@ -112,11 +112,11 @@ public class SideBar extends AppCompatActivity
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_map) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_search) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_shelters) {
 
         } else if (id == R.id.nav_share) {
 
