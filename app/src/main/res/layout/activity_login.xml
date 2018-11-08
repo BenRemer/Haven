@@ -9,14 +9,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="app.haven.haven.LoginActivity">
+    tools:context="app.haven.haven.Controller.activities.LoginActivity">
 
     <!-- Login progress -->
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="108dp"
-        app:srcCompat="@mipmap/logo" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/ic_haven_banner"
+        android:contentDescription="Haven Logo" />
 
     <ProgressBar
         android:id="@+id/login_progress"
@@ -51,41 +53,47 @@
                 android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
-                    android:id="@+id/username"
+                    android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Username"
+                    android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="20dp"
+                android:layout_weight="1" />
 
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-                    <!-- android:hint="Password" -->
-
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/username_sign_in_button"
+            <EditText
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Sign In"
-                android:textStyle="bold" />
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                tools:layout_editor_absoluteX="15dp"
+                tools:layout_editor_absoluteY="165dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/email_sign_in_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:text="Sign In" />
+
+            </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
@@ -102,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Forogt Password" />
+                    android:text="Forgot Password" />
 
                 <Button
                     android:id="@+id/continue_as_guest_button"
